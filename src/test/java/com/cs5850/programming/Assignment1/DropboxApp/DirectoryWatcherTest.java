@@ -100,27 +100,27 @@ public class DirectoryWatcherTest {
 
 	}
 	
-	@Test
-	public void testSync() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException  {
-		DirectoryWatcher watcher = new DirectoryWatcher();
-		//service.setEnvironment(BUCKET_NAME, KEY_NAME, KEY_NAME2);		
-		//File file = mock(File.class); 
-		//set-up credentials
-		watcher.setCredentials("accesskey", "secretkey");
-				
-//		        //set-up the client
-//				AmazonS3 s3client = AmazonS3ClientBuilder
-//		                .standard()
-//		                .withCredentials(new AWSStaticCredentialsProvider(credentials))
-//		                .withRegion(Regions.US_EAST_1)
-//		                .build();
+//	@Test
+//	public void testSync() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException  {
+//		DirectoryWatcher watcher = new DirectoryWatcher();
+//		//service.setEnvironment(BUCKET_NAME, KEY_NAME, KEY_NAME2);		
+//		//File file = mock(File.class); 
+//		//set-up credentials
+//		watcher.setCredentials("accesskey", "secretkey");
 //				
-				//AWSS3Service 
-				//AWSS3Service service = new AWSS3Service(s3client);
-	    service.setEnvironment("bucketName", "localPath", "cloudFolder");
-		watcher.sync(DIRECTORY, service);
-		verify(watcher).sync(DIRECTORY, service);
-		 
-	}
+////		        //set-up the client
+////				AmazonS3 s3client = AmazonS3ClientBuilder
+////		                .standard()
+////		                .withCredentials(new AWSStaticCredentialsProvider(credentials))
+////		                .withRegion(Regions.US_EAST_1)
+////		                .build();
+////				
+//				//AWSS3Service 
+//				//AWSS3Service service = new AWSS3Service(s3client);
+//	    service.setEnvironment("bucketName", "localPath", "cloudFolder");
+//		watcher.sync(DIRECTORY, service);
+//		verify(watcher).sync(DIRECTORY, service);
+//		 
+//	}
 
 }

@@ -137,22 +137,22 @@ public class AWSS3ServiceTest {
 //            new File(watchFolder +"/" + object)
 //        );
 //    }
-    @Test 
-    public void whenUpLoad_thenCorrect() { 
-    	service.setEnvironment(BUCKET_NAME, KEY_NAME, KEY_NAME2);
-        service.uploadFile(KEY_NAME); 
-        //verify(service).putObject(BUCKET_NAME, KEY_NAME2 + KEY_NAME, new File(KEY_NAME + '/' + KEY_NAME)); 
-    }
-//    public void downloadFile(Object fileName) throws IOException{
-//    	S3Object s3object = this.getObject(bucketName, s3target + fileName);
-//        S3ObjectInputStream inputStream = s3object.getObjectContent();
-//        FileUtils.copyInputStreamToFile(inputStream, new File(watchFolder + fileName));
+//    @Test 
+//    public void whenUpLoad_thenCorrect() { 
+//    	service.setEnvironment(BUCKET_NAME, KEY_NAME, KEY_NAME2);
+//        service.uploadFile(KEY_NAME); 
+//        //verify(service).putObject(BUCKET_NAME, KEY_NAME2 + KEY_NAME, new File(KEY_NAME + '/' + KEY_NAME)); 
 //    }
-    @Test 
-    public void whenDownLoad_thenCorrect() throws IOException{ 
-    	//public void setEnvironment(String bucketNameInput, String watchFolderInput, String s3targetInput){
-    	//service.setEnvironment(BUCKET_NAME, KEY_NAME, KEY_NAME2);
-        service.downloadFile(KEY_NAME); 
-        //verify(service).getObject(BUCKET_NAME, KEY_NAME2 + KEY_NAME); 
-    }
+////    public void downloadFile(Object fileName) throws IOException{
+////    	S3Object s3object = this.getObject(bucketName, s3target + fileName);
+////        S3ObjectInputStream inputStream = s3object.getObjectContent();
+////        FileUtils.copyInputStreamToFile(inputStream, new File(watchFolder + fileName));
+////    }
+//    @Test 
+//    public void whenDownLoad_thenCorrect() throws IOException{ 
+//    	//public void setEnvironment(String bucketNameInput, String watchFolderInput, String s3targetInput){
+//    	//service.setEnvironment(BUCKET_NAME, KEY_NAME, KEY_NAME2);
+//        //service.downloadFile(KEY_NAME); 
+//        //verify(service).getObject(BUCKET_NAME, KEY_NAME2 + KEY_NAME); 
+//    }
 }
