@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.mockito.InjectMocks;
+//import org.mockito.InjectMocks;
 
 //import com.amazonaws.regions.Regions;
 

@@ -176,7 +176,7 @@ public class DirectoryWatcher {
     * @version 1.0
     * @since version 1.00
     */
-	private File[] returnFileList(String input){
+	public File[] returnFileList(String input){
 		System.out.println("fire returnFileList function");
 		File folder = new File(input);
 		File[] listOfFiles = folder.listFiles();
@@ -184,7 +184,7 @@ public class DirectoryWatcher {
 	}
 	
 	/**
-    * 
+    * Tested
     * The method sync local watch folder and S3 cloud bucket folder 
     *
     * @param input, String variable as the local folder path

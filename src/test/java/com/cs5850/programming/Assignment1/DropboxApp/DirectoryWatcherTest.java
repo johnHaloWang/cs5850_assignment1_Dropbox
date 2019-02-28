@@ -5,6 +5,7 @@ package com.cs5850.programming.Assignment1.DropboxApp;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 //import org.junit.Assert.*;
@@ -20,6 +21,7 @@ import java.util.Set;
 import org.junit.*;
 
 import java.io.File;
+import java.io.IOException;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
@@ -35,6 +37,10 @@ import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.amazonaws.services.s3.AmazonS3;
 
+import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 /**
  * @author johnhalowang
  *
@@ -42,8 +48,8 @@ import com.amazonaws.services.s3.AmazonS3;
 
 
 public class DirectoryWatcherTest {
-	private AmazonS3 s3; 
-	private AWSS3Service service;
+	private AmazonS3 mockedS3; 
+	private AWSS3Service mockedService;
 	private static AWSCredentials credentials;
     private String DIRECTORY = "src/test/resources/DirectoryWatcherTestFolder";
     private File[] EXPECTED_FILE_LIST;
@@ -53,6 +59,9 @@ public class DirectoryWatcherTest {
     private static final String KEY_NAME = "key_name"; 
     private static final String BUCKET_NAME2 = "bucket_name2";
     private static final String KEY_NAME2 = "key_name2";
+
+    
+
     
 	@Before 
     public void setUp() { 
@@ -66,8 +75,19 @@ public class DirectoryWatcherTest {
 				accesskey, 
 				secretkey
 		);
-		s3 = mock(AmazonS3.class);
-		service = mock(AWSS3Service.class);
+		
+		mockedS3 = mock(AmazonS3.class, RETURNS_DEEP_STUBS);
+		mockedService = mock(AWSS3Service.class, RETURNS_DEEP_STUBS);
+//		File mockFile1 = mock(File.class);
+//		File mockFile2 = mock(File.class);
+//		File mockFile3 = mock(File.class);
+		
+		ObjectListing mockedListObject = mock(ObjectListing.class, RETURNS_DEEP_STUBS);
+		
+	    when(mockedService.listObjects()).thenReturn(mockedListObject);
+	    
+	    
+	   
 		//service = new AWSS3Service(s3);
 		
     }
@@ -75,19 +95,39 @@ public class DirectoryWatcherTest {
 	@After
 	public void cleanup() {
 		System.out.println("Cleaning up the test env");
+		
 	}
+	
+//	@Test
+//	public void testRunWatch() throws IOException, InterruptedException{
+//		DirectoryWatcher watcher = new DirectoryWatcher();
+//		watcher.runWatch(DIRECTORY, mockedService, 1);
+//		File f = new File(DIRECTORY + "/"  + "new_file.txt");
+//		f.createNewFile();
+//		verify(mockedService).uploadFile("new_file.txt");
+//		
+//		
+//	}
 	
 	@Test
-	public void testReturnFileList() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public void testSync(){
 		DirectoryWatcher watcher = new DirectoryWatcher();
-		Method method = DirectoryWatcher.class.getDeclaredMethod("returnFileList", String.class);
-		method.setAccessible(true);
-		File[] result =  (File [])method.invoke(watcher, DIRECTORY);
-		Arrays.sort(result);
-		Arrays.sort(EXPECTED_FILE_LIST);
-		assertThat(result, is(equalTo(EXPECTED_FILE_LIST))); 
+		watcher.sync(DIRECTORY, mockedService);
+		verify(mockedService).uploadFile("test.xml");
+		verify(mockedService).uploadFile("employee.json");
+		verify(mockedService).uploadFile("students.json");
+		verify(mockedService).uploadFile("country.txt");
 	}
 	
+//	@Test
+//	public void testReturnFileList() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+//		DirectoryWatcher watcher = new DirectoryWatcher();
+//		File[] result  = watcher.returnFileList(DIRECTORY);
+//		Arrays.sort(result);
+//		Arrays.sort(EXPECTED_FILE_LIST);
+//		assertThat(result, is(equalTo(EXPECTED_FILE_LIST))); 
+//	}
+
 	@Test
 	public void testSetCredentials() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException  {
 		DirectoryWatcher watcher = new DirectoryWatcher();
@@ -100,27 +140,6 @@ public class DirectoryWatcherTest {
 
 	}
 	
-//	@Test
-//	public void testSync() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException  {
-//		DirectoryWatcher watcher = new DirectoryWatcher();
-//		//service.setEnvironment(BUCKET_NAME, KEY_NAME, KEY_NAME2);		
-//		//File file = mock(File.class); 
-//		//set-up credentials
-//		watcher.setCredentials("accesskey", "secretkey");
-//				
-////		        //set-up the client
-////				AmazonS3 s3client = AmazonS3ClientBuilder
-////		                .standard()
-////		                .withCredentials(new AWSStaticCredentialsProvider(credentials))
-////		                .withRegion(Regions.US_EAST_1)
-////		                .build();
-////				
-//				//AWSS3Service 
-//				//AWSS3Service service = new AWSS3Service(s3client);
-//	    service.setEnvironment("bucketName", "localPath", "cloudFolder");
-//		watcher.sync(DIRECTORY, service);
-//		verify(watcher).sync(DIRECTORY, service);
-//		 
-//	}
+
 
 }

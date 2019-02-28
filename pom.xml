@@ -97,6 +97,7 @@
 				<format>xml</format>
 			</formats>
 		</configuration>
+		
 	</plugin>
 
    </plugins>
