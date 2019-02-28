@@ -229,9 +229,10 @@ public class DirectoryWatcher {
 				  //if it does not exist, it means that the item needs need to be added. do nothing to map
 				  else
 					  service.uploadFile(listOfLocal[i].getName());
-			  } else if (listOfLocal[i].isDirectory()) {
-			    //working on this
 			  }
+//			  } else if (listOfLocal[i].isDirectory()) {
+//			    //working on this
+//			  }
 		}
 		
 		/*
