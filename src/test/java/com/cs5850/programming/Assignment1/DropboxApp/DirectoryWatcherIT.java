@@ -57,14 +57,14 @@ public class DirectoryWatcherIT {
 	}
 	@Test
 	public void test() throws IOException, InterruptedException {		
-		System.out.println( "Integration Test......." );
-	    DirectoryWatcher watcher = new DirectoryWatcher();
-	    watcher.run("AKIAI5HRCERPEMP2PHCQ", 
-	    		    "lUS8GJqvusbx47nwjSKn+s/5P6SRRZ9ew1SBxIdf", 
-	    		    "cs5850-johnhalowang", 
-	    		    "/Users/johnwang/Documents/fileRoot",
-	    		    "Document/", 
-	    		    1);
+//		System.out.println( "Integration Test......." );
+//	    DirectoryWatcher watcher = new DirectoryWatcher();
+//	    watcher.run("AKIAI5HRCERPEMP2PHCQ", 
+//	    		    "lUS8GJqvusbx47nwjSKn+s/5P6SRRZ9ew1SBxIdf", 
+//	    		    "cs5850-johnhalowang", 
+//	    		    "/Users/johnwang/Documents/fileRoot",
+//	    		    "Document/", 
+//	    		    1);
 
 	}
 
