@@ -25,7 +25,7 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
  * @author johnwang
  *
  */
-@Category(IntegrationTest.class)
+
 public class DirectoryWatcherIT {
 
 	/**
@@ -55,11 +55,16 @@ public class DirectoryWatcherIT {
 	@After
 	public void tearDown() throws Exception {
 	}
-
+	@Test
 	public void test() throws IOException, InterruptedException {		
-		System.out.println( "Integration Test" );
+		System.out.println( "Integration Test......." );
 	    DirectoryWatcher watcher = new DirectoryWatcher();
-	    watcher.run("AKIAI5HRCERPEMP2PHCQ", "lUS8GJqvusbx47nwjSKn+s/5P6SRRZ9ew1SBxIdf", "cs5850-johnhalowang", "/Users/johnwang/Documents/fileRoot","Document/", 1);
+	    watcher.run("AKIAI5HRCERPEMP2PHCQ", 
+	    		    "lUS8GJqvusbx47nwjSKn+s/5P6SRRZ9ew1SBxIdf", 
+	    		    "cs5850-johnhalowang", 
+	    		    "/Users/johnwang/Documents/fileRoot",
+	    		    "Document/", 
+	    		    1);
 
 	}
 

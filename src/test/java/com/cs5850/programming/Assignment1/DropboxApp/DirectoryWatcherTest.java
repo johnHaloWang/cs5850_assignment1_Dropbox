@@ -61,7 +61,6 @@ public class DirectoryWatcherTest {
     private static final String KEY_NAME2 = "key_name2";
 
     
-
     
 	@Before 
     public void setUp() { 
@@ -76,20 +75,11 @@ public class DirectoryWatcherTest {
 				secretkey
 		);
 		
-		mockedS3 = mock(AmazonS3.class, RETURNS_DEEP_STUBS);
+		//mockedS3 = mock(AmazonS3.class, RETURNS_DEEP_STUBS);
 		mockedService = mock(AWSS3Service.class, RETURNS_DEEP_STUBS);
-//		File mockFile1 = mock(File.class);
-//		File mockFile2 = mock(File.class);
-//		File mockFile3 = mock(File.class);
-		
 		ObjectListing mockedListObject = mock(ObjectListing.class, RETURNS_DEEP_STUBS);
-		
 	    when(mockedService.listObjects()).thenReturn(mockedListObject);
-	    
-	    
-	   
-		//service = new AWSS3Service(s3);
-		
+	  
     }
 	
 	@After
@@ -98,35 +88,16 @@ public class DirectoryWatcherTest {
 		
 	}
 	
-//	@Test
-//	public void testRunWatch() throws IOException, InterruptedException{
-//		DirectoryWatcher watcher = new DirectoryWatcher();
-//		watcher.runWatch(DIRECTORY, mockedService, 1);
-//		File f = new File(DIRECTORY + "/"  + "new_file.txt");
-//		f.createNewFile();
-//		verify(mockedService).uploadFile("new_file.txt");
-//		
-//		
-//	}
-	
 	@Test
 	public void testSync(){
 		DirectoryWatcher watcher = new DirectoryWatcher();
 		watcher.sync(DIRECTORY, mockedService);
+		
 		verify(mockedService).uploadFile("test.xml");
 		verify(mockedService).uploadFile("employee.json");
 		verify(mockedService).uploadFile("students.json");
 		verify(mockedService).uploadFile("country.txt");
 	}
-	
-//	@Test
-//	public void testReturnFileList() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-//		DirectoryWatcher watcher = new DirectoryWatcher();
-//		File[] result  = watcher.returnFileList(DIRECTORY);
-//		Arrays.sort(result);
-//		Arrays.sort(EXPECTED_FILE_LIST);
-//		assertThat(result, is(equalTo(EXPECTED_FILE_LIST))); 
-//	}
 
 	@Test
 	public void testSetCredentials() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException  {

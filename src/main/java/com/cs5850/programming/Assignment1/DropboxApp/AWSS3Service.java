@@ -237,23 +237,6 @@ public class AWSS3Service {
     
     /**
     * Tested
-    * The method will list all item in the s3 bucket 
-    * 	that current AWSS3Service is pointing to 
-    * 	it will print out all the item
-    *
-    * @return nothing
-    * @version 1.0
-    * @since version 1.00
-    */
-    public void listBucketCurrentContant(){
-    	ObjectListing objectListing = this.listObjects();
-        for(S3ObjectSummary os : objectListing.getObjectSummaries()) {
-            System.out.println(os.getKey());
-        }
-    }
-    
-    /**
-    * Tested
     * The method will upload a file (object->string->filename) in the local drive (per-set up in
     * setEnvionment method), to the s3 bucket 
     * 	that current AWSS3Service is pointing to 
@@ -270,25 +253,6 @@ public class AWSS3Service {
            s3target + object, 
             new File(watchFolder +"/" + object)
         );
-    }
-    
-    /**
-    * 
-    * The method will download a file (object->string->filename) to the local drive (per-set up in
-    * setEnvionment method) from the s3 bucket 
-    * 	that current AWSS3Service is pointing to 
-    * 	based on input
-    *
-    * @param object Object variable as the file name
-    * @return nothing
-    * @throws IOException
-    * @version 1.0
-    * @since version 1.00
-    */
-    public void downloadFile(Object fileName) throws IOException{
-    	S3Object s3object = this.getObject(bucketName, s3target + fileName);
-        S3ObjectInputStream inputStream = s3object.getObjectContent();
-        FileUtils.copyInputStreamToFile(inputStream, new File(watchFolder + fileName));
     }
     
     /**

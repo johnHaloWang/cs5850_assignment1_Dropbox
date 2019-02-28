@@ -79,7 +79,6 @@ public class DirectoryWatcher {
 		this.runWatch(localPath, service, 1);
 		System.out.println("happened2");
 		return;
-		
 	}
 
 
@@ -135,8 +134,6 @@ public class DirectoryWatcher {
         	
         	System.out.println("test while");
         	List<WatchEvent<?>>watchEvents = key.pollEvents();
-
-
             for (WatchEvent<?> event : watchEvents) {
                 
                 if(event.kind().equals(StandardWatchEventKinds.ENTRY_CREATE)) {
