@@ -4,10 +4,10 @@
 package com.cs5850.programming.Assignment1.DropboxApp;
 
 import java.io.File;
-import java.io.IOException;
+//import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
+//import org.apache.commons.io.FileUtils;
 //import org.mockito.InjectMocks;
 
 //import com.amazonaws.regions.Regions;
@@ -26,8 +26,8 @@ import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.services.s3.model.S3Object;
-import com.amazonaws.services.s3.model.S3ObjectInputStream;
-import com.amazonaws.services.s3.model.S3ObjectSummary;
+//import com.amazonaws.services.s3.model.S3ObjectInputStream;
+//import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 /** AWS S3Service utility class 
  * @author johnhalowang
@@ -41,7 +41,6 @@ public class AWSS3Service {
 	//private static AWSCredentials credentials;
     private String bucketName; 
     private String watchFolder;
-    private String s3target;
     
     /**
      * 
@@ -67,6 +66,7 @@ public class AWSS3Service {
      */
     public AWSS3Service(AmazonS3 s3client) {
         this.s3client = s3client;
+        
     }
 	
 	/**
@@ -81,29 +81,6 @@ public class AWSS3Service {
     * @version 1.0
     * @since version 1.00
     */
-//	public static synchronized AWSS3Service getInstance(AmazonS3 s3clientInput){
-//		if(instance == null){
-//			synchronized (AWSS3Service.class) {
-//	            if(instance == null){
-//	                instance = new AWSS3Service();
-//	                //put your accesskey and secretkey here
-//	                //set-up the credentials
-//	                credentials = new BasicAWSCredentials(
-//	                  "AKIAI5HRCERPEMP2PHCQ", 
-//	                  "lUS8GJqvusbx47nwjSKn+s/5P6SRRZ9ew1SBxIdf"
-//	                );
-//	                //set-up the client
-//	                s3clientInput = AmazonS3ClientBuilder
-//	                        .standard()
-//	                        .withCredentials(new AWSStaticCredentialsProvider(credentials))
-//	                        .withRegion(Regions.US_EAST_1)
-//	                        .build();
-//	                s3client = s3clientInput;
-//	            }
-//	        }
-//		}
-//		return instance;
-//	}
 	
 	/**
     * Tested
@@ -119,10 +96,9 @@ public class AWSS3Service {
     * @version 1.0
     * @since version 1.00
     */
-	public void setEnvironment(String bucketNameInput, String watchFolderInput, String s3targetInput){
+	public void setEnvironment(String bucketNameInput, String watchFolderInput){
     	this.bucketName = bucketNameInput;
     	this.watchFolder = watchFolderInput;
-    	this.s3target = s3targetInput; 
     }
     
 	/**
@@ -148,6 +124,7 @@ public class AWSS3Service {
     * @since version 1.00
     */
     public Bucket createBucket(String bucketName) { 
+    	
         return s3client.createBucket(bucketName); 
     } 
 
@@ -250,7 +227,7 @@ public class AWSS3Service {
     public void uploadFile(Object object){
     	this.putObject(
            bucketName,
-           s3target + object, 
+           object.toString(), 
             new File(watchFolder +"/" + object)
         );
     }
@@ -267,6 +244,6 @@ public class AWSS3Service {
     * @since version 1.00
     */
     public void deleteFile(Object fileName){
-    	this.deleteObject(bucketName, s3target + fileName);
+    	this.deleteObject(bucketName, fileName.toString());
     }    
 }

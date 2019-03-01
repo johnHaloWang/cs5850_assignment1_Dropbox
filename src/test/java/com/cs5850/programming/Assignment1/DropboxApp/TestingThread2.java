@@ -3,15 +3,19 @@ package com.cs5850.programming.Assignment1.DropboxApp;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class TestingThread2 extends Thread{
-	private String DIRECTORY = "src/test/resources/DirectoryWatcherTestFolder";
+	
+	private String DIRECTORY;
+	public void setDIRECTORY(String dir){
+		DIRECTORY = dir;
+	}
+	public String getDIRECTORY(){
+		return DIRECTORY;
+	}
 	@Override
 	public void run() {
 		System.out.println("MyThread - START " + Thread.currentThread().getName());
-		ArrayList<String> lines = new ArrayList<String>();
-		String line = null;
 
 		try {
 			Thread.sleep(200);
