@@ -25,9 +25,9 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2019</copyright>
     <item>
-      <title>File: 2,
-             Errors: 314,
-             Warnings: 0,
+      <title>File: 1,
+             Errors: 0,
+             Warnings: 1,
              Infos: 0
       </title>
             <link>http://maven.apache.org/checkstyle.html</link>
@@ -52,24 +52,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
-                </td>
-                <td>
-                  162
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://maven.apache.org/checkstyle.html#com.cs5850.programming.Assignment1.DropboxApp.AWSS3Service.java">com/cs5850/programming/Assignment1/DropboxApp/AWSS3Service.java</a>
+                  1
                 </td>
                 <td>
                   0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  152
                 </td>
               </tr>
                       </tbody>

@@ -71,13 +71,10 @@ public class DirectoryWatcher {
                 .withCredentials(new AWSStaticCredentialsProvider(credentials))
                 .withRegion(Regions.US_EAST_1)
                 .build();
-		
-		//AWSS3Service 
 		AWSS3Service service = new AWSS3Service(s3client);
 	    service.setEnvironment(bucketName, localPath, cloudFolder);
 		sync(localPath, service);
 		this.runWatch(localPath, service, 1);
-		System.out.println("happened2");
 		return;
 	}
 
@@ -119,49 +116,36 @@ public class DirectoryWatcher {
         		StandardWatchEventKinds.ENTRY_CREATE, 
         		StandardWatchEventKinds.ENTRY_DELETE, 
         		StandardWatchEventKinds.ENTRY_MODIFY);
-        
-        
-        //key = watchService.poll(1, TimeUnit.MILLISECONDS);
+   
         long startTime = System.currentTimeMillis();
         long endTime;
-        System.out.println("test before while");
-        
-        
-        WatchKey key = watchService.poll(runTimeInMin, TimeUnit.MINUTES);//watchService.take();
-
-         
-         while (key != null) {
-        	
-        	System.out.println("test while");
+        WatchKey key = watchService.poll(runTimeInMin, TimeUnit.MINUTES);
+        while (key != null) {        	
         	List<WatchEvent<?>>watchEvents = key.pollEvents();
             for (WatchEvent<?> event : watchEvents) {
-                
                 if(event.kind().equals(StandardWatchEventKinds.ENTRY_CREATE)) {
                     System.out.println("Event kind:" + event.kind() 
-                    + ", file: " + event.context());
-                    service.uploadFile(event.context());
+                    + ", file: " + event.context());                   
+                    service.uploadFile(event.context().toString());
                  }
                  else if (event.kind().equals(StandardWatchEventKinds.ENTRY_DELETE)) {
                     System.out.println("Event kind:" + event.kind() 
                     + ", file: " + event.context());
-                    service.deleteFile(event.context());  
+                    service.deleteFile(event.context().toString());  
                  }
                  else if (event.kind().equals(StandardWatchEventKinds.ENTRY_MODIFY)) {
                     System.out.println("Event kind:" + event.kind() 
                     + ", file: " + event.context());
-                    service.uploadFile(event.context());
-                 }
-
+                    service.uploadFile(event.context().toString());
+                }
             }
-            System.out.println("test");
             endTime = System.currentTimeMillis();
             key.reset();
             if((endTime-startTime)/6000 > runTimeInMin)
             	break;
             	
          }
-        System.out.println("test 4");
-         watchService.close();
+        watchService.close();
 	}
 		
 	/**
@@ -189,7 +173,8 @@ public class DirectoryWatcher {
     * @version 1.0
     * @since version 1.00
     */
-	public void sync(String input, AWSS3Service service){
+	public boolean sync(String input, AWSS3Service service){
+		
 		System.out.println("fire sync function");
 		//get the File list from the local watched folder
     	File[] listOfLocal = returnFileList(input);
@@ -200,8 +185,8 @@ public class DirectoryWatcher {
     	//insert all file name and last modified to the h -- hash map
     	for(S3ObjectSummary os : listOfCloud.getObjectSummaries()) {
     		String [] data = os.getKey().split("/");
-    		String fileName = data[data.length-1];
-            h.put(fileName, os.getLastModified());
+    		//String fileName = data[data.length-1];
+            h.put(data[data.length-1], os.getLastModified());
     	}
     	
 		/* go through the local folder's file element 
@@ -230,18 +215,14 @@ public class DirectoryWatcher {
 				  else
 					  service.uploadFile(listOfLocal[i].getName());
 			  }
-//			  } else if (listOfLocal[i].isDirectory()) {
-//			    //working on this
-//			  }
 		}
 		
 		/*
 		 * the rest of the item in map -- means does not exists in the local watched folder,
 		 * it will be removed 
 		 */		
-		for (String key : h.keySet()) {
-			service.deleteFile(key);
-		}
+		for (String key : h.keySet()) { service.deleteFile(key); }
+		return true;
 	}
 	/**
 	 * 
