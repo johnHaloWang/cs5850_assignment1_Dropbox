@@ -10,4 +10,4 @@ Set credentials file in the AWS credentials profile file on your local system, l
 }
 
 ## code coverage
-![avatar](https://github.com/johnHaloWang/cs5850_assignment1_Dropbox/coverage.png)
+![avatar](https://github.com/johnHaloWang/cs5850_assignment1_Dropbox/blob/master/coverage.png)
